@@ -1,0 +1,148 @@
+############
+# sclForum #
+############
+scl_forum:
+  url: /sclForum.:sf_format
+  param: { module: sclForum, action: index, sf_format: html }
+  requirements: { sf_method: GET, sf_format: html }
+
+scl_forum_new:
+  url: /sclForum/new.:sf_format
+  param: { module: sclForum, action: new, sf_format: html }
+  requirements: { sf_method: GET, sf_format: html }
+
+scl_forum_create:
+  url: /sclForum/create.:sf_format
+  param: { module: sclForum, action: create, sf_format: html }
+  requirements: { sf_method: POST, sf_format: html }
+
+scl_forum_edit:
+  url: /sclForum/:id/edit.:sf_format
+  param: { module: sclForum, action: edit, sf_format: html }
+  requirements: { sf_method: GET, sf_format: html }
+  class: sfDoctrineRoute
+  options: { model: sclForum, type: object }
+
+scl_forum_update:
+  url: /sclForum/:id/update.:sf_format
+  param: { module: sclForum, action: update, sf_format: html }
+  requirements: { sf_method: POST, sf_format: html }
+  class: sfDoctrineRoute
+  options: { model: sclForum, type: object }
+
+scl_forum_delete:
+  url: /sclForum/:id/delete.:sf_format
+  param: { module: sclForum, action: delete, sf_format: html }
+  requirements: { sf_method: DELETE, sf_format: html }
+  class: sfDoctrineRoute
+  options: { model: sclForum, type: object }
+
+scl_forum_show:
+  url: /sclForum/:slug.:sf_format
+  param: { module: sclForum, action: show, sf_format: html }
+  requirements: { sf_method: GET, sf_format: html }
+  class: sfDoctrineRoute
+  options: { model: sclForum, type: object }
+################################################################################
+
+############
+# sclTopic #
+############
+scl_topic:
+  url: /sclTopic.:sf_format
+  param: { module: sclTopic, action: index, sf_format: html }
+  requirements: { sf_method: GET, sf_format: html }
+
+scl_topic_show:
+  url: /sclTopic/:id.:sf_format
+  param: { module: sclTopic, action: show, sf_format: html }
+  requirements: { sf_method: GET, sf_format: html }
+  class: sfDoctrineRoute
+  options: { model: sclTopic, type: object }
+
+scl_topic_new:
+  url: /sclTopic/:slug/new.:sf_format
+  param: { module: sclTopic, action: new, sf_format: html }
+  requirements: { sf_method: GET, sf_format: html }
+  class: sfDoctrineRoute
+  options: { model: sclForum, type: object }
+
+scl_topic_create:
+  url: /sclTopic/:slug/create.:sf_format
+  param: { module: sclTopic, action: create, sf_format: html }
+  requirements: { sf_method: POST, sf_format: html }
+  class: sfDoctrineRoute
+  options: { model: sclForum, type: object }
+
+scl_topic_edit:
+  url: /sclTopic/:id/edit.:sf_format
+  param: { module: sclTopic, action: edit, sf_format: html }
+  requirements: { sf_method: GET, sf_format: html }
+  class: sfDoctrineRoute
+  options: { model: sclTopic, type: object }
+
+scl_topic_update:
+  url: /sclTopic/:id/update.:sf_format
+  param: { module: sclTopic, action: update, sf_format: html }
+  requirements: { sf_method: POST, sf_format: html }
+  class: sfDoctrineRoute
+  options: { model: sclTopic, type: object }
+
+scl_topic_delete:
+  url: /sclTopic/:id/delete.:sf_format
+  param: { module: sclTopic, action: delete, sf_format: html }
+  requirements: { sf_method: DELETE, sf_format: html }
+  class: sfDoctrineRoute
+  options: { model: sclTopic, type: object }
+################################################################################
+
+###########
+# sclPost #
+###########
+scl_post:
+  url: /sclPost.:sf_format
+  param: { module: post, action: index, sf_format: html }
+  requirements: { sf_method: GET, sf_format: html }
+
+scl_post_show:
+  url: /sclPost/:slug.:sf_format
+  param: { module: sclPost, action: show, sf_format: html }
+  requirements: { sf_method: GET, sf_format: html }
+  class: sfDoctrineRoute
+  options: { model: sclPost, type: object }
+
+scl_post_new:
+  url: /sclPost/:id/new.:sf_format
+  param: { module: sclPost, action: new, sf_format: html }
+  requirements: { sf_method: GET, sf_format: html }
+  class: sfDoctrineRoute
+  options: { model: sclTopic, type: object }
+
+scl_post_create:
+  url: /sclPost/:id/create.:sf_format
+  param: { module: sclPost, action: create, sf_format: html }
+  requirements: { sf_method: POST, sf_format: html }
+  class: sfDoctrineRoute
+  options: { model: sclTopic, type: object }
+
+scl_post_edit:
+  url: /sclPost/:id/edit.:sf_format
+  param: { module: sclPost, action: edit, sf_format: html }
+  requirements: { sf_method: GET, sf_format: html }
+  class: sfDoctrineRoute
+  options: { model: sclPost, type: object }
+
+scl_post_update:
+  url: /sclPost/:id/update.:sf_format
+  param: { module: sclPost, action: update, sf_format: html }
+  requirements: { sf_method: POST, sf_format: html }
+  class: sfDoctrineRoute
+  options: { model: sclPost, type: object }
+
+scl_post_delete:
+  url: /sclPost/:id/delete.:sf_format
+  param: { module: sclPost, action: delete, sf_format: html }
+  requirements: { sf_method: DELETE, sf_format: html }
+  class: sfDoctrineRoute
+  options: { model: sclPost, type: object }
+################################################################################

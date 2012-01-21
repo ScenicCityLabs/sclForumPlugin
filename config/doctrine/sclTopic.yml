@@ -1,0 +1,49 @@
+sclTopic:
+  actAs:
+    Timestampable: ~
+    Blameable: ~
+    SoftDelete: ~
+    Versionable: ~
+    Searchable:
+      fields: [title,body]
+  columns:
+    forum_id:
+      type: integer
+      notnull: true
+    title:
+      type: string
+      length: 255
+      notnull: true
+    body:
+      type: clob
+      notnull: true
+    ip_address:
+      type: string
+      length: 32
+    is_sticky:
+      type: boolean
+      default: false
+    is_locked:
+      type: boolean
+      default: false
+  indexes:
+    forum_id_is_locked_idx:
+      fields: [forum_id,is_locked]
+  relations:
+    CreatedByUser:
+      class: sfGuardUser
+      local: created_by
+      foreign: id
+    UpdatedByUser:
+      class: sfGuardUser
+      local: updated_by
+      foreign: id
+    Forum:
+      class: sclForum
+      local: forum_id
+      foreign: id
+    Posts:
+      class: sclPost
+      local: id
+      foreign: topic_id
+      type: many

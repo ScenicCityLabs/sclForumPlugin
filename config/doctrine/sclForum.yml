@@ -1,0 +1,24 @@
+sclForum:
+  actAs:
+    Timestampable: ~
+    NestedSet:
+      hasManyRoots: true
+    Sluggable:
+      canUpdate: true
+    Blameable: ~
+  columns:
+    title:
+      type: string
+      length: 255
+      notnull: true
+    description:
+      type: clob
+    is_active:
+      type: boolean
+      default: true
+    is_hidden:
+      type: boolean
+      default: false
+  indexes:
+    slug_idx:
+      fields: [slug]
