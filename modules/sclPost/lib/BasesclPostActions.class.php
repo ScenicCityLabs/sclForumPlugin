@@ -21,9 +21,20 @@ abstract class BasesclPostActions extends sfActions
 
   }
 
+  /**
+   *
+   * @param sfWebRequest $request
+   */
   public function executeNew(sfWebRequest $request)
   {
     $this->sclTopic = $this->getRoute()->getObject();
+
+    if ($this->sclTopic->getIsLocked())
+    {
+      $this->getUser()->setFlash('error', 'This topic is locked and no replies can be added');
+      $this->redirect(array('sf_route' => 'scl_topic_show', 'sf_subject' => $this->sclTopic));
+    }
+
     $this->form = new sclPostForm(null, array(
         'sclTopic' => $this->sclTopic
       ));

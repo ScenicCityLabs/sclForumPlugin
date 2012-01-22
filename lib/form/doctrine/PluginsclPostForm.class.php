@@ -33,12 +33,16 @@ abstract class PluginsclPostForm extends BasesclPostForm
 
   public function getSclTopic()
   {
-    if ($this->getOption('sfTopic'))
+    if ($this->getOption('sclTopic'))
     {
       return $this->getOption('sclTopic');
     }
+    elseif (!$this->isNew())
+    {
+      return $this->getObject()->getTopic();
+    }
 
-    return $this->getObject()->getTopic();
+    return false;
   }
 
   public function getSclForum()

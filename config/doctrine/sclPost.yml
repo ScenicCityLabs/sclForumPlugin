@@ -2,8 +2,6 @@ sclPost:
   actAs:
     Timestampable: ~
     Blameable: ~
-    SoftDelete: ~
-    Versionable: ~
     Searchable:
       fields: [title,body]
   columns:

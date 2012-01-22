@@ -14,6 +14,9 @@ abstract class BasesclForumActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
     $this->pager = new sfDoctrinePager('sclForum', 0);
+    $query = Doctrine_Core::getTable('sclForum')->createQuery()
+      ->orderBy('root_id ASC, lft ASC');
+    $this->pager->setQuery($query);
     $this->pager->init();
   }
 
@@ -21,10 +24,11 @@ abstract class BasesclForumActions extends sfActions
   {
     $this->sclForum = $this->getRoute()->getObject();
     $this->pager = new sfDoctrinePager('sclTopic');
-    $this->pager->setPage($request->getParameter('page',1));
+    $this->pager->setPage($request->getParameter('page', 1));
+    $this->pager->setMaxPerPage($request->getParameter('maxperpage', 10));
     $query = Doctrine_Core::getTable('sclTopic')->createQuery()
-      ->where('forum_id = ? AND is_locked = 0',$this->sclForum->getId())
-      ->orderBy('is_sticky DESC, updated_at ASC');
+        ->where('forum_id = ?', $this->sclForum->getId())
+        ->orderBy('is_sticky DESC, updated_at DESC');
     $this->pager->setQuery($query);
     $this->pager->init();
   }
@@ -58,6 +62,13 @@ abstract class BasesclForumActions extends sfActions
   public function executeDelete(sfWebRequest $request)
   {
     $this->sclForum = $this->getRoute()->getObject();
+    $request->checkCSRFProtection();
+    $this->dispatcher->notify(new sfEvent($this, 'admin.delete_object', array('object' => $this->sclForum)));
+    if ($this->getRoute()->getObject()->getNode()->delete())
+    {
+      $this->getUser()->setFlash('notice', 'The forum was deleted successfully.');
+    }
+    $this->redirect('@scl_forum');
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -85,12 +96,12 @@ abstract class BasesclForumActions extends sfActions
       if ($request->hasParameter('_save_and_add'))
       {
         $this->getUser()->setFlash('notice', $notice . ' You can add another one below.');
-        $this->redirect('@scl_topic_new');
+        $this->redirect('@scl_forum_new');
       }
       else
       {
         $this->getUser()->setFlash('notice', $notice);
-        $this->redirect(array('sf_route' => 'scl_topic_show', 'sf_subject' => $record));
+        $this->redirect(array('sf_route' => 'scl_forum_show', 'sf_subject' => $record));
       }
     }
     else

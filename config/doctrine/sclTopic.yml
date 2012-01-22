@@ -2,8 +2,6 @@ sclTopic:
   actAs:
     Timestampable: ~
     Blameable: ~
-    SoftDelete: ~
-    Versionable: ~
     Searchable:
       fields: [title,body]
   columns:
@@ -47,3 +45,4 @@ sclTopic:
       local: id
       foreign: topic_id
       type: many
+      onDelete: CASCADE

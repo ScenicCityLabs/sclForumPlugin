@@ -21,6 +21,7 @@ abstract class BasesclTopicActions extends sfActions
     $this->sclTopic = $this->getRoute()->getObject();
     $this->pager = new sfDoctrinePager('sclPost');
     $this->pager->setPage($request->getParameter('page',1));
+    $this->pager->setMaxPerPage($request->getParameter('maxperpage', 10));
     $query = Doctrine_Core::getTable('sclPost')->createQuery()
       ->where('topic_id = ?',$this->sclTopic->getId())
       ->orderBy('created_at ASC');
@@ -90,12 +91,12 @@ abstract class BasesclTopicActions extends sfActions
       if ($request->hasParameter('_save_and_add'))
       {
         $this->getUser()->setFlash('notice', $notice . ' You can add another one below.');
-        $this->redirect('@scl_forum_new');
+        $this->redirect('@scl_topic_new');
       }
       else
       {
         $this->getUser()->setFlash('notice', $notice);
-        $this->redirect(array('sf_route' => 'scl_forum_edit', 'sf_subject' => $record));
+        $this->redirect(array('sf_route' => 'scl_topic_show', 'sf_subject' => $record));
       }
     }
     else

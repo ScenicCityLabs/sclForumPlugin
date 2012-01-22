@@ -35,6 +35,15 @@ abstract class PluginsclTopicForm extends BasesclTopicForm
 
   public function getSclForum()
   {
-    return $this->getOption('sclForum');
+    if ($this->getOption('sclForum'))
+    {
+      return $this->getOption('sclForum');
+    }
+    elseif (!$this->isNew())
+    {
+      return $this->getObject()->Forum;
+    }
+
+    return false;
   }
 }
