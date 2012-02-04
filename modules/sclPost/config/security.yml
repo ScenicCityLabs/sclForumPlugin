@@ -1,0 +1,28 @@
+###########
+# sclPost #
+###########
+index:
+  is_secure: false
+
+show:
+  is_secure: false
+
+new:
+  is_secure: true
+  credentials: [scl_post_create]
+
+create:
+  is_secure: true
+  credentials: [scl_post_create]
+
+edit:
+  is_secure: true
+  credentials: [scl_post_update]
+
+update:
+  is_secure: true
+  credentials: [scl_post_update]
+
+delete:
+  is_secure: true
+  credentials: [scl_post_delete]

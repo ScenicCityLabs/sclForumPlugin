@@ -11,7 +11,7 @@
 abstract class BasesclTopicActions extends sfActions
 {
 
-  public function executeIndex(sfWebRequest $request)
+  public function executeIndex()
   {
     
   }
@@ -20,11 +20,11 @@ abstract class BasesclTopicActions extends sfActions
   {
     $this->sclTopic = $this->getRoute()->getObject();
     $this->pager = new sfDoctrinePager('sclPost');
-    $this->pager->setPage($request->getParameter('page',1));
+    $this->pager->setPage($request->getParameter('page', 1));
     $this->pager->setMaxPerPage($request->getParameter('maxperpage', 10));
     $query = Doctrine_Core::getTable('sclPost')->createQuery()
-      ->where('topic_id = ?',$this->sclTopic->getId())
-      ->orderBy('created_at ASC');
+        ->where('topic_id = ?', $this->sclTopic->getId())
+        ->orderBy('created_at ASC');
     $this->pager->setQuery($query);
     $this->pager->init();
   }
@@ -74,6 +74,14 @@ abstract class BasesclTopicActions extends sfActions
       $notice = $form->getObject()->isNew() ? 'The item was created successfully.' : 'The item was updated successfully.';
       try
       {
+        if ($form->getObject()->isNew())
+        {
+          $this->dispatcher->notify(new sfEvent($this, 'forum.topic_create', array()));
+        }
+        else
+        {
+          $this->dispatcher->notify(new sfEvent($this, 'forum.topic_update', array()));
+        }
         $record = $form->save();
       }
       catch (Doctrine_Validator_Exception $e)

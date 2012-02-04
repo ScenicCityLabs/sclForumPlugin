@@ -73,6 +73,14 @@ abstract class BasesclPostActions extends sfActions
       $notice = $form->getObject()->isNew() ? 'The item was created successfully.' : 'The item was updated successfully.';
       try
       {
+        if ($form->getObject()->isNew())
+        {
+          $this->dispatcher->notify(new sfEvent($this, 'forum.post_create', array()));
+        }
+        else
+        {
+          $this->dispatcher->notify(new sfEvent($this, 'forum.post_update', array()));
+        }
         $record = $form->save();
       }
       catch (Doctrine_Validator_Exception $e)
