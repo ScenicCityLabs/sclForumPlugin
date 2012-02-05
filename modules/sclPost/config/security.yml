@@ -9,11 +9,11 @@ show:
 
 new:
   is_secure: true
-  credentials: [scl_post_create]
+#  credentials: [scl_post_create]
 
 create:
   is_secure: true
-  credentials: [scl_post_create]
+#  credentials: [scl_post_create]
 
 edit:
   is_secure: true
